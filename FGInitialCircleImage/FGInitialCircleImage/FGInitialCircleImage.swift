@@ -10,7 +10,7 @@ import UIKit
 
 class FGInitialCircleImage: NSObject {
     
-    class func circleImage(firstName: NSString, lastName: NSString, size: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor) -> UIImage {
+    class func circleImage(firstName: NSString, lastName: NSString, size: CGFloat, borderWidth: CGFloat, borderColor: UIColor, backgroundColor: UIColor, textColor: UIColor) -> UIImage {
         let imageRect: CGRect = CGRectMake(0, 0, size, size);
         UIGraphicsBeginImageContextWithOptions(imageRect.size, false, UIScreen.mainScreen().scale);
         
@@ -30,7 +30,7 @@ class FGInitialCircleImage: NSObject {
         
         // Text
         let internalCircleRect = calculateInternalRectSize(imageRect);
-        let attributeString = initals(firstName, lastName: lastName, size: internalCircleRect);
+        let attributeString = initals(firstName, lastName: lastName, size: internalCircleRect, textColor: textColor);
         
         attributeString.drawInRect(internalCircleRect);
         
@@ -43,7 +43,7 @@ class FGInitialCircleImage: NSObject {
     
     // MARK: Internal
     
-    private class func initals(firstName: NSString, lastName: NSString, size: CGRect) -> NSAttributedString {
+    private class func initals(firstName: NSString, lastName: NSString, size: CGRect, textColor: UIColor) -> NSAttributedString {
         let firstNameInitial: NSString = firstName.substringToIndex(1);
         let lastNameInitial: NSString = lastName.substringToIndex(1);
         let inital: NSString = (firstNameInitial as String) + (lastNameInitial as String);
@@ -51,7 +51,7 @@ class FGInitialCircleImage: NSObject {
         let paragraphStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle;
         paragraphStyle.alignment = NSTextAlignment.Center;
         let attributes: [String: AnyObject] = [
-            NSForegroundColorAttributeName: UIColor.grayColor(),
+            NSForegroundColorAttributeName: textColor,
             NSParagraphStyleAttributeName: paragraphStyle
         ];
         
